@@ -19,12 +19,7 @@ export default function CtaPropietarios() {
           </p>
 
           <div className="flex flex-wrap gap-4">
-            <button className="font-medium bg-[#1c3a2a] text-white px-6 py-3 rounded-full hover:bg-[#2d5a3d] transition-colors">
-              Publicar mi quinta gratis
-            </button>
-            <button className="text-[#1c3a2a] px-6 py-3 rounded-full border border-[#1c3a2a]/30 hover:bg-[#1c3a2a]/5 transition-colors">
-              Ver cómo funciona →
-            </button>
+            
           </div>
         </div>
       </div>

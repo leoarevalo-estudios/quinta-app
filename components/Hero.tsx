@@ -1,10 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Hero() {
-  const [busqueda, setBusqueda] = useState("");
-  const [personas, setPersonas] = useState("");
+  const router = useRouter();
+  const [ubicacion, setUbicacion] = useState("");
+  const [capacidad, setCapacidad] = useState("");
+
+  const handleBuscar = () => {
+    const params = new URLSearchParams();
+    if (ubicacion) params.append("ubicacion", ubicacion);
+    if (capacidad) params.append("capacidad", capacidad);
+    router.push(`/buscar?${params.toString()}`);
+  };
 
   return (
     <section className="relative min-h-[88vh] flex items-center overflow-hidden bg-[#1c3a2a]">
@@ -46,7 +55,7 @@ export default function Hero() {
 
         <div className="fc" style={{ width: "168px", marginRight: "24px", animation: "float 4s ease-in-out infinite", animationDelay: "1.2s" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <span style={{ fontSize: "24px" }}>⭐</span>
+            <span style={{ fontSize: "24px" }}>&#x2B50;</span>
             <div>
               <div style={{ fontWeight: 500, fontSize: "15px", color: "white" }}>4.9 / 5</div>
               <div className="fc-sub">38 reseñas</div>
@@ -64,59 +73,53 @@ export default function Hero() {
       {/* Contenido */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 w-full">
         <div className="max-w-2xl">
-          <p className="text-[#7db88a] text-sm tracking-widest uppercase mb-6 fade-up">
+          <p className="text-[#7db88a] text-sm tracking-widest uppercase mb-6">
             La plataforma de quintas de Argentina
           </p>
-          <h1 className="font-display text-white text-5xl md:text-6xl leading-tight mb-6 fade-up delay-1">
+          <h1 className="font-display text-white text-5xl md:text-6xl leading-tight mb-6">
             Tu próximo evento,<br />
             <em className="text-[#7db88a]">en la quinta perfecta</em>
           </h1>
-          <p className="text-white/65 text-lg mb-10 leading-relaxed fade-up delay-2">
+          <p className="text-white/65 text-lg mb-10 leading-relaxed">
             Más de 2.400 quintas en todo el país. Publicá la tuya o encontrá el
             espacio ideal para tu cumpleaños, casamiento o reunión familiar.
           </p>
 
           {/* Buscador */}
-          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-2 fade-up delay-3">
+          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-2">
             <div className="flex flex-col md:flex-row gap-2">
               <div className="flex-1 flex items-center gap-3 bg-white/10 rounded-xl px-4 py-3">
-                <span className="text-white/50 text-lg">📍</span>
+                <span style={{ fontSize: "16px" }}>&#x1F4CD;</span>
                 <input
                   type="text"
-                  value={busqueda}
-                  onChange={(e) => setBusqueda(e.target.value)}
+                  value={ubicacion}
+                  onChange={(e) => setUbicacion(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleBuscar()}
                   placeholder="¿Dónde? Pilar, Escobar, Luján..."
                   className="bg-transparent text-white text-sm w-full outline-none placeholder:text-white/45"
                 />
               </div>
-              <div className="flex items-center gap-3 bg-white/10 rounded-xl px-4 py-3 md:w-36">
-                <span className="text-white/50 text-lg">👥</span>
+              <div className="flex items-center gap-3 bg-white/10 rounded-xl px-4 py-3 md:w-40">
+                <span style={{ fontSize: "16px" }}>&#x1F465;</span>
                 <input
                   type="number"
-                  value={personas}
-                  onChange={(e) => setPersonas(e.target.value)}
+                  value={capacidad}
+                  onChange={(e) => setCapacidad(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleBuscar()}
                   placeholder="Personas"
                   className="bg-transparent text-white text-sm w-full outline-none placeholder:text-white/45"
                 />
               </div>
-              <button className="bg-[#4a7c59] hover:bg-[#3d6b4a] text-white font-medium text-sm px-6 py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
-                <span>🔍</span> Buscar quintas
+              <button
+                onClick={handleBuscar}
+                className="bg-[#4a7c59] hover:bg-[#3d6b4a] text-white font-medium text-sm px-6 py-3 rounded-xl transition-colors flex items-center gap-2 justify-center"
+              >
+                <span style={{ fontSize: "14px" }}>&#x1F50D;</span>
+                Buscar quintas
               </button>
             </div>
           </div>
-
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2 mt-5 fade-up delay-4">
-            <span className="text-white/40 text-xs self-center">Popular:</span>
-            {["Pileta + asador", "Eventos 100+ personas", "GBA Norte", "Con alojamiento"].map((t) => (
-              <button
-                key={t}
-                className="text-xs text-white/70 border border-white/20 rounded-full px-3 py-1 hover:bg-white/10 transition-colors"
-              >
-                {t}
-              </button>
-            ))}
-          </div>
+          
         </div>
       </div>
 

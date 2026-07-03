@@ -2,7 +2,6 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
 import QuintasGrid from "@/components/QuintasGrid";
-import ZonasPopulares from "@/components/ZonasPopulares";
 import CtaPropietarios from "@/components/CtaPropietarios";
 import ComoFunciona from "@/components/ComoFunciona";
 import Footer from "@/components/Footer";
@@ -14,7 +13,6 @@ export default function HomePage() {
       <Hero />
       <Stats />
       <QuintasGrid />
-      <ZonasPopulares />
       <CtaPropietarios />
       <ComoFunciona />
       <Footer />

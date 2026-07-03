@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  email     String   @unique
+  telefono  String?
+  password  String
+  rol       String   @default("inquilino")
+  createdAt DateTime @default(now())
+
+  quintas   Quinta[]
+  reservas  Reserva[]
+  notificaciones Notificacion[]
+}
+
+model Quinta {
+  id          Int      @id @default(autoincrement())
+  nombre      String
+  descripcion String
+  ubicacion   String
+  precio      Float
+  capacidad   Int
+  amenities   String
+  emoji       String   @default("�")
+  createdAt   DateTime @default(now())
+
+  propietarioId Int
+  propietario   User      @relation(fields: [propietarioId], references: [id])
+  reservas      Reserva[]
+}
+
+model Reserva {
+  id        Int      @id @default(autoincrement())
+  fecha     String
+  personas  Int
+  estado    String   @default("pendiente")
+  createdAt DateTime @default(now())
+
+  quintaId  Int
+  quinta    Quinta   @relation(fields: [quintaId], references: [id])
+
+  usuarioId Int
+  usuario   User     @relation(fields: [usuarioId], references: [id])
+}
+model Notificacion {
+  id        Int      @id @default(autoincrement())
+  mensaje   String
+  leida     Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  usuarioId Int
+  usuario   User @relation(fields: [usuarioId], references: [id])
+}
+model TokenRecuperacion {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  email     String
+  expira    DateTime
+  usado     Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
