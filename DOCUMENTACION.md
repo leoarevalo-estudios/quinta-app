@@ -3,6 +3,7 @@
 ## 📋 Tabla de Contenidos
 
 - [Descripción General](#descripción-general)
+- [Requerimientos](#requerimientos)
 - [Tecnologías Utilizadas](#tecnologías-utilizadas)
 - [Estructura del Proyecto](#estructura-del-proyecto)
 - [Configuración e Instalación](#configuración-e-instalación)
@@ -32,7 +33,180 @@
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+## � Requerimientos
+
+### Requerimientos Funcionales (RF)
+
+#### Autenticación y Usuarios
+
+| ID | Descripción | Prioridad | Estado |
+|----|----|----------|--------|
+| RF-01 | Registrar usuario (inquilino/propietario) | Alta | ✅ Implementado |
+| RF-02 | Login con email y contraseña | Alta | ✅ Implementado |
+| RF-03 | Logout del sistema | Alta | ✅ Implementado |
+| RF-04 | Recuperar contraseña por email | Alta | ✅ Implementado |
+| RF-05 | Reset de contraseña con token | Alta | ✅ Implementado |
+| RF-06 | Validación de sesión JWT | Alta | ✅ Implementado |
+| RF-07 | Editar perfil de usuario | Media | ✅ Implementado |
+| RF-08 | Cambiar contraseña | Media | ⏳ Pendiente |
+
+#### Gestión de Quintas
+
+| ID | Descripción | Prioridad | Estado |
+|----|----|----------|--------|
+| RF-09 | Crear nueva quinta (propietario) | Alta | ✅ Implementado |
+| RF-10 | Editar quinta propia (propietario) | Alta | ✅ Implementado |
+| RF-11 | Eliminar quinta (propietario) | Alta | ✅ Implementado |
+| RF-12 | Listar todas las quintas públicas | Alta | ✅ Implementado |
+| RF-13 | Ver detalles de una quinta | Alta | ✅ Implementado |
+| RF-14 | Filtrar quintas por ubicación | Media | ✅ Implementado |
+| RF-15 | Filtrar quintas por precio | Media | ✅ Implementado |
+| RF-16 | Filtrar quintas por capacidad | Media | ✅ Implementado |
+| RF-17 | Buscar quintas por nombre/descripción | Media | ⏳ Pendiente |
+| RF-18 | Mostrar amenities de quinta | Media | ✅ Implementado |
+
+#### Sistema de Reservas
+
+| ID | Descripción | Prioridad | Estado |
+|----|----|----------|--------|
+| RF-19 | Crear nueva reserva | Alta | ✅ Implementado |
+| RF-20 | Ver mis reservas (inquilino) | Alta | ✅ Implementado |
+| RF-21 | Ver reservas de mis quintas (propietario) | Alta | ✅ Implementado |
+| RF-22 | Cancelar reserva | Alta | ✅ Implementado |
+| RF-23 | Confirmar reserva (propietario) | Media | ✅ Implementado |
+| RF-24 | Rechazar reserva (propietario) | Media | ⏳ Pendiente |
+| RF-25 | Validar disponibilidad de fechas | Alta | ⏳ Pendiente |
+| RF-26 | Calcular precio total de reserva | Media | ⏳ Pendiente |
+
+#### Notificaciones
+
+| ID | Descripción | Prioridad | Estado |
+|----|----|----------|--------|
+| RF-27 | Enviar notificación en nueva reserva | Media | ✅ Implementado |
+| RF-28 | Enviar notificación de cambio de estado | Media | ✅ Implementado |
+| RF-29 | Listar notificaciones del usuario | Media | ✅ Implementado |
+| RF-30 | Marcar notificación como leída | Media | ✅ Implementado |
+| RF-31 | Eliminar notificación | Baja | ⏳ Pendiente |
+| RF-32 | Notificaciones por email | Media | ⏳ Pendiente |
+
+### Requerimientos No-Funcionales (RNF)
+
+#### Performance
+
+| ID | Descripción | Métrica |
+|----|----|----|
+| RNF-01 | Tiempo de carga inicial | < 3 segundos |
+| RNF-02 | Tiempo de respuesta API | < 500ms (p95) |
+| RNF-03 | Optimización de imágenes | WebP, lazy loading |
+| RNF-04 | Caché de datos | Redis/Browser cache |
+| RNF-05 | Minificación de assets | CSS, JS comprimidos |
+
+#### Seguridad
+
+| ID | Descripción | Implementación |
+|----|----|----|
+| RNF-06 | Encriptación de contraseñas | bcryptjs |
+| RNF-07 | HTTPS obligatorio | Certificado SSL |
+| RNF-08 | Validación de entrada | Server-side validation |
+| RNF-09 | Protección CSRF | NextAuth tokens |
+| RNF-10 | Rate limiting | API endpoints |
+| RNF-11 | CORS configurado | Dominios permitidos |
+| RNF-12 | SQL Injection prevention | Prisma ORM |
+| RNF-13 | XSS protection | React sanitization |
+
+#### Escalabilidad
+
+| ID | Descripción | Solución |
+|----|----|----|
+| RNF-14 | Soporte para N usuarios concurrentes | Load balancing |
+| RNF-15 | Base de datos escalable | Turso/SQLite |
+| RNF-16 | Static generation | Next.js ISR |
+| RNF-17 | CDN para assets | Vercel/CloudFlare |
+
+#### Usabilidad
+
+| ID | Descripción | Criterio |
+|----|----|----|
+| RNF-18 | Responsive design | Mobile-first |
+| RNF-19 | Accesibilidad WCAG 2.1 | Level AA |
+| RNF-20 | Navegación intuitiva | IA/UX best practices |
+| RNF-21 | Mensajes de error claros | Feedback al usuario |
+| RNF-22 | Soporte de idiomas | i18n ready |
+
+#### Compatibilidad
+
+| ID | Descripción | Navegadores |
+|----|----|----|
+| RNF-23 | Navegadores soportados | Chrome, Firefox, Safari, Edge (últimas 2 versiones) |
+| RNF-24 | Mobile responsivo | iOS, Android |
+| RNF-25 | Versión mínima Node.js | 18.0.0 |
+
+### Requerimientos de Usuario (RU)
+
+#### Usuario Inquilino
+
+| Caso de Uso | Descripción |
+|------------|-----------|
+| **RU-01: Buscar Quintas** | Como inquilino, puedo buscar y filtrar quintas disponibles para encontrar la ideal |
+| **RU-02: Ver Detalles** | Como inquilino, puedo ver detalles, fotos y amenities de una quinta |
+| **RU-03: Hacer Reserva** | Como inquilino, puedo reservar una quinta para fechas específicas |
+| **RU-04: Ver mis Reservas** | Como inquilino, puedo ver todas mis reservas activas y pasadas |
+| **RU-05: Cancelar Reserva** | Como inquilino, puedo cancelar una reserva pendiente de confirmación |
+| **RU-06: Recibir Notificaciones** | Como inquilino, recibo notificaciones de cambios en mis reservas |
+| **RU-07: Editar Perfil** | Como inquilino, puedo actualizar mis datos personales |
+
+#### Usuario Propietario
+
+| Caso de Uso | Descripción |
+|------------|-----------|
+| **RU-08: Crear Quinta** | Como propietario, puedo crear una nueva quinta con descripción y precios |
+| **RU-09: Editar Quinta** | Como propietario, puedo modificar información de mis quintas |
+| **RU-10: Eliminar Quinta** | Como propietario, puedo eliminar una quinta de mi catálogo |
+| **RU-11: Ver Reservas** | Como propietario, puedo ver todas las reservas de mis quintas |
+| **RU-12: Confirmar Reserva** | Como propietario, puedo confirmar una reserva recibida |
+| **RU-13: Rechazar Reserva** | Como propietario, puedo rechazar una reserva con motivo |
+| **RU-14: Dashboard** | Como propietario, tengo un dashboard con estadísticas de reservas |
+| **RU-15: Reporte de Ingresos** | Como propietario, puedo ver un reporte de ingresos por período |
+
+### Matriz de Trazabilidad
+
+```
+RF-01 (Registrar) → RU-01, RU-08
+RF-02 (Login) → RU-01, RU-08
+RF-09 (Crear Quinta) → RU-08
+RF-19 (Crear Reserva) → RU-03
+RF-20 (Ver Reservas) → RU-04, RU-11
+RF-27 (Notificaciones) → RU-06
+```
+
+### Criterios de Aceptación
+
+#### CA-01: Registro de Usuario
+- [ ] Usuario puede registrarse con email, nombre y contraseña
+- [ ] Email debe ser único
+- [ ] Contraseña debe tener mínimo 8 caracteres
+- [ ] Seleccionar rol (inquilino/propietario)
+- [ ] Confirmar términos y condiciones
+- [ ] Recibir email de confirmación
+
+#### CA-02: Crear Reserva
+- [ ] Solo usuarios logueados pueden reservar
+- [ ] Validar que la fecha sea futura
+- [ ] Validar que la cantidad de personas no exceda capacidad
+- [ ] Mostrar precio total estimado
+- [ ] Confirmar reserva
+- [ ] Generar confirmación por email
+
+#### CA-03: Filtrar Quintas
+- [ ] Filtro por ubicación funcional
+- [ ] Filtro por rango de precio (min-max)
+- [ ] Filtro por capacidad
+- [ ] Aplicar múltiples filtros simultáneamente
+- [ ] Mostrar cantidad de resultados
+
+---
+
+
 
 ### Frontend
 - **Next.js 16.2.6** - Framework React con SSR
